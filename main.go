@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"time"
 
 	termbox "github.com/nsf/termbox-go"
@@ -47,19 +46,26 @@ func timer(now int, tch chan int) {
 }
 
 func draw(tch chan int) {
-	show("0")
+	show(0)
 
 	for {
 		t := <-tch
-		show(fmt.Sprint(t))
+		show(t)
 	}
 }
 
-func show(time string) {
+func show(t int) {
+	secNum := New(t%10, 12)
+	hsecNum := New(t/10, 12)
+	tsecNum := New(t/100, 12)
+	ttsecNum := New(t/1000, 12)
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	drawLine(0, 0, "Timer")
 	drawLine(0, 1, "Enter esc to stop")
-	drawLine(0, 2, time)
+	secNum.Show(50, 5)
+	hsecNum.Show(35, 5)
+	tsecNum.Show(20, 5)
+	ttsecNum.Show(5, 5)
 	termbox.Flush()
 }
 
