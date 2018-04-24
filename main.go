@@ -57,30 +57,51 @@ func draw(tch chan int) {
 }
 
 func show(t int) {
-	digits := digitsInt(t)
-	secSize := 7
-	size := 11
-	sNum := New(digits["s"], secSize)
-	s2Num := New(digits["s2"], secSize)
-	mNum := New(digits["m"], size)
-	m2Num := New(digits["m2"], size)
-	hNum := New(digits["h"], size)
-	h2Num := New(digits["h2"], size)
+	originX := 15
+	originY := 15
+	digitsNum := digitsNum(t)
+
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	drawLine(0, 0, "Timer")
 	drawLine(0, 1, "Enter esc to stop")
-	sNum.Show(56, 5)
-	s2Num.Show(49, 5)
 
-	mNum.Show(39, 5)
-	m2Num.Show(29, 5)
+	// hour
+	hX := originX
+	digitsNum["h2"].Show(hX, originY)
+	digitsNum["h"].Show(hX+10, originY)
 
-	drawLine(26, 8, "=")
-	drawLine(26, 10, "=")
+	// separator
+	sepX := hX + 10 + 11
+	sepY := originY + 3
+	drawLine(sepX, sepY, "=")
+	drawLine(sepX, sepY+2, "=")
 
-	hNum.Show(15, 5)
-	h2Num.Show(5, 5)
+	// minute
+	mX := sepX + 3
+	digitsNum["m2"].Show(mX, originY)
+	digitsNum["m"].Show(mX+10, originY)
+
+	// second
+	sX := mX + 10 + 10
+	digitsNum["s2"].Show(sX, originY)
+	digitsNum["s"].Show(sX+7, originY)
+
 	termbox.Flush()
+}
+
+func digitsNum(t int) map[string]NumberInterface {
+	digits := digitsInt(t)
+	secSize := 7
+	size := 11
+
+	return map[string]NumberInterface{
+		"s":  New(digits["s"], secSize),
+		"s2": New(digits["s2"], secSize),
+		"m":  New(digits["m"], size),
+		"m2": New(digits["m2"], size),
+		"h":  New(digits["h"], size),
+		"h2": New(digits["h2"], size),
+	}
 }
 
 func digitsInt(t int) map[string]int {
