@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"strconv"
 	"time"
 
 	termbox "github.com/nsf/termbox-go"
@@ -55,18 +57,68 @@ func draw(tch chan int) {
 }
 
 func show(t int) {
-	secNum := New(t%10, 12)
-	hsecNum := New(t/10, 12)
-	tsecNum := New(t/100, 12)
-	ttsecNum := New(t/1000, 12)
+	digits := digitsInt(t)
+	secSize := 7
+	size := 11
+	sNum := New(digits["s"], secSize)
+	s2Num := New(digits["s2"], secSize)
+	mNum := New(digits["m"], size)
+	m2Num := New(digits["m2"], size)
+	hNum := New(digits["h"], size)
+	h2Num := New(digits["h2"], size)
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	drawLine(0, 0, "Timer")
 	drawLine(0, 1, "Enter esc to stop")
-	secNum.Show(50, 5)
-	hsecNum.Show(35, 5)
-	tsecNum.Show(20, 5)
-	ttsecNum.Show(5, 5)
+	sNum.Show(56, 5)
+	s2Num.Show(49, 5)
+
+	mNum.Show(39, 5)
+	m2Num.Show(29, 5)
+
+	drawLine(26, 8, "=")
+	drawLine(26, 10, "=")
+
+	hNum.Show(15, 5)
+	h2Num.Show(5, 5)
 	termbox.Flush()
+}
+
+func digitsInt(t int) map[string]int {
+	ss := fmt.Sprintf("%02d", t%60)
+	ms := fmt.Sprintf("%02d", t/60)
+	hs := fmt.Sprintf("%02d", t/3600)
+	s, err := strconv.Atoi(string(ss[1]))
+	if err != nil {
+		panic(err)
+	}
+	s2, err := strconv.Atoi(string(ss[0]))
+	if err != nil {
+		panic(err)
+	}
+	m, err := strconv.Atoi(string(ms[1]))
+	if err != nil {
+		panic(err)
+	}
+	m2, err := strconv.Atoi(string(ms[0]))
+	if err != nil {
+		panic(err)
+	}
+	h, err := strconv.Atoi(string(hs[1]))
+	if err != nil {
+		panic(err)
+	}
+	h2, err := strconv.Atoi(string(hs[0]))
+	if err != nil {
+		panic(err)
+	}
+	return map[string]int{
+		"s":  s,
+		"s2": s2,
+		"m":  m,
+		"m2": m2,
+		"h":  h,
+		"h2": h2,
+	}
 }
 
 func drawLine(x, y int, str string) {
