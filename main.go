@@ -60,8 +60,10 @@ func draw(tch chan int) {
 func show(t int) {
 	originX := terminalWidth() / 3
 	originY := terminalHeight() / 3
-	size := 11
+	size := 8
 	digitsNum := digitsNum(t, size)
+	intvl := 2
+	sepIntvl := 3
 
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	drawLine(0, 0, "Timer")
@@ -69,24 +71,27 @@ func show(t int) {
 
 	// hour
 	hX := originX
+	hMgn := digitsNum["h2"].Width() + intvl
 	digitsNum["h2"].Show(hX, originY)
-	digitsNum["h"].Show(hX+10, originY)
+	digitsNum["h"].Show(hX+hMgn, originY)
 
 	// separator
-	sepX := hX + 10 + 11
-	sepY := originY + 3
+	sepX := hX + hMgn + digitsNum["h"].Width() + sepIntvl
+	sepY := originY + digitsNum["h"].Height()/2 - 1
 	drawLine(sepX, sepY, "=")
 	drawLine(sepX, sepY+2, "=")
 
 	// minute
-	mX := sepX + 3
+	mX := sepX + sepIntvl
+	mMgn := digitsNum["m2"].Width() + intvl
 	digitsNum["m2"].Show(mX, originY)
-	digitsNum["m"].Show(mX+10, originY)
+	digitsNum["m"].Show(mX+mMgn, originY)
 
 	// second
-	sX := mX + 10 + 10
+	sX := mX + mMgn + digitsNum["m"].Width() + intvl
+	sMgn := digitsNum["s2"].Width() + intvl
 	digitsNum["s2"].Show(sX, originY)
-	digitsNum["s"].Show(sX+7, originY)
+	digitsNum["s"].Show(sX+sMgn, originY)
 
 	termbox.Flush()
 }
