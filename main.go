@@ -60,7 +60,8 @@ func draw(tch chan int) {
 func show(t int) {
 	originX := terminalWidth() / 3
 	originY := terminalHeight() / 3
-	digitsNum := digitsNum(t)
+	size := 11
+	digitsNum := digitsNum(t, size)
 
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	drawLine(0, 0, "Timer")
@@ -124,12 +125,11 @@ func terminalHeight() int {
 	return height
 }
 
-func digitsNum(t int) map[string]NumberInterface {
+func digitsNum(t, size int) map[string]Number {
 	digits := digitsInt(t)
-	secSize := 7
-	size := 11
+	secSize := size * 7 / 11
 
-	return map[string]NumberInterface{
+	return map[string]Number{
 		"s":  New(digits["s"], secSize),
 		"s2": New(digits["s2"], secSize),
 		"m":  New(digits["m"], size),

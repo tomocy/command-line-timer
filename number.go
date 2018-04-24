@@ -5,74 +5,74 @@ import (
 )
 
 // NumberInterface is interface for acting as a number
-type NumberInterface interface {
+type Number interface {
 	Width() int
 	Height() int
 	Show(x, y int)
 }
 
 // Number is the type for 0~9 number
-type Number struct {
+type number struct {
 	size int
 }
 
 // Zero is the type for 0
-type Zero struct {
-	*Number
+type zero struct {
+	*number
 }
 
 // One is the type for 1
-type One struct {
-	*Number
+type one struct {
+	*number
 }
 
 // Two is the type for 2
-type Two struct {
-	*Number
+type two struct {
+	*number
 }
 
 // Three is the type for 3
-type Three struct {
-	*Number
+type three struct {
+	*number
 }
 
 // Four is the type for 4
-type Four struct {
-	*Number
+type four struct {
+	*number
 }
 
 // Five is the type for 5
-type Five struct {
-	*Number
+type five struct {
+	*number
 }
 
 // Six is the type for 6
-type Six struct {
-	*Number
+type six struct {
+	*number
 }
 
 // Seven is the type for 7
-type Seven struct {
-	*Number
+type seven struct {
+	*number
 }
 
 // Eight is the type for 8
-type Eight struct {
-	*Number
+type eight struct {
+	*number
 }
 
 // Nine is the type for 9
-type Nine struct {
-	*Number
+type nine struct {
+	*number
 }
 
 // Width calcutes the width of the number
-func (num *Number) Width() int {
+func (num *number) Width() int {
 	return num.size * 3 / 4
 }
 
 // Height calculates the height of the number
-func (num *Number) Height() int {
+func (num *number) Height() int {
 	var res = num.size * 4 / 5
 
 	if res%2 == 0 {
@@ -82,37 +82,37 @@ func (num *Number) Height() int {
 	return res
 }
 
-// New returns a number instance implimenting NumberIntaface
-func New(n int, size int) NumberInterface {
+// New returns a number instance implimenting Number
+func New(n int, size int) Number {
 	z2n := zero2nine.FromInt(n)
-	num := &Number{size: size}
+	num := &number{size: size}
 	switch z2n {
 	case zero2nine.Zero:
-		return &Zero{num}
+		return &zero{num}
 	case zero2nine.One:
-		return &One{num}
+		return &one{num}
 	case zero2nine.Two:
-		return &Two{num}
+		return &two{num}
 	case zero2nine.Three:
-		return &Three{num}
+		return &three{num}
 	case zero2nine.Four:
-		return &Four{num}
+		return &four{num}
 	case zero2nine.Five:
-		return &Five{num}
+		return &five{num}
 	case zero2nine.Six:
-		return &Six{num}
+		return &six{num}
 	case zero2nine.Seven:
-		return &Seven{num}
+		return &seven{num}
 	case zero2nine.Eight:
-		return &Eight{num}
+		return &eight{num}
 	case zero2nine.Nine:
-		return &Nine{num}
+		return &nine{num}
 	default:
 		return nil
 	}
 }
 
-func (zero *Zero) Show(x, y int) {
+func (zero *zero) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -161,7 +161,7 @@ func (zero *Zero) Show(x, y int) {
 	}
 }
 
-func (one *One) Show(x, y int) {
+func (one *one) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -204,7 +204,7 @@ func (one *One) Show(x, y int) {
 	}
 }
 
-func (two *Two) Show(x, y int) {
+func (two *two) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -247,7 +247,7 @@ func (two *Two) Show(x, y int) {
 	// }
 }
 
-func (three *Three) Show(x, y int) {
+func (three *three) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -290,7 +290,7 @@ func (three *Three) Show(x, y int) {
 	}
 }
 
-func (four *Four) Show(x, y int) {
+func (four *four) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -342,7 +342,7 @@ func (four *Four) Show(x, y int) {
 	}
 }
 
-func (five *Five) Show(x, y int) {
+func (five *five) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -385,7 +385,7 @@ func (five *Five) Show(x, y int) {
 	}
 }
 
-func (six *Six) Show(x, y int) {
+func (six *six) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -428,7 +428,7 @@ func (six *Six) Show(x, y int) {
 	}
 }
 
-func (seven *Seven) Show(x, y int) {
+func (seven *seven) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -477,7 +477,7 @@ func (seven *Seven) Show(x, y int) {
 	}
 }
 
-func (eight *Eight) Show(x, y int) {
+func (eight *eight) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
@@ -520,7 +520,7 @@ func (eight *Eight) Show(x, y int) {
 	}
 }
 
-func (nine *Nine) Show(x, y int) {
+func (nine *nine) Show(x, y int) {
 	const str = "="
 	var originX = x
 	var originY = y
