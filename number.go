@@ -4,7 +4,7 @@ import (
 	"github.com/tomocy/command-line-timer/zero2nine"
 )
 
-// NumberInterface is interface for acting as a number
+// Number is interface for acting as a number
 type Number interface {
 	Width() int
 	Height() int
@@ -16,52 +16,52 @@ type number struct {
 	size int
 }
 
-// Zero is the type for 0
+// zero is the type for 0
 type zero struct {
 	*number
 }
 
-// One is the type for 1
+// one is the type for 1
 type one struct {
 	*number
 }
 
-// Two is the type for 2
+// two is the type for 2
 type two struct {
 	*number
 }
 
-// Three is the type for 3
+// three is the type for 3
 type three struct {
 	*number
 }
 
-// Four is the type for 4
+// four is the type for 4
 type four struct {
 	*number
 }
 
-// Five is the type for 5
+// five is the type for 5
 type five struct {
 	*number
 }
 
-// Six is the type for 6
+// six is the type for 6
 type six struct {
 	*number
 }
 
-// Seven is the type for 7
+// seven is the type for 7
 type seven struct {
 	*number
 }
 
-// Eight is the type for 8
+// eight is the type for 8
 type eight struct {
 	*number
 }
 
-// Nine is the type for 9
+// nine is the type for 9
 type nine struct {
 	*number
 }
