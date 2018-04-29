@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"os/exec"
 	"strconv"
 	"time"
 
 	termbox "github.com/nsf/termbox-go"
+	"github.com/tomocy/command-line-timer/terminal"
 )
 
 func main() {
@@ -58,8 +58,8 @@ func draw(tch chan int) {
 }
 
 func show(t int) {
-	originX := terminalWidth() / 3
-	originY := terminalHeight() / 3
+	originX := terminal.Width() / 3
+	originY := terminal.Height() / 3
 	size := 8
 	digitsNum := digitsNum(t, size)
 	intvl := 2
@@ -94,40 +94,6 @@ func show(t int) {
 	digitsNum["s"].Show(sX+sMgn, originY)
 
 	termbox.Flush()
-}
-
-func terminalWidth() int {
-	out, err := exec.Command("tput", "cols").Output()
-	if err != nil {
-		panic(err)
-	}
-
-	// delete \n at the last index
-	just := out[:len(out)-1]
-
-	width, err := strconv.Atoi(string(just))
-	if err != nil {
-		panic(err)
-	}
-
-	return width
-}
-
-func terminalHeight() int {
-	out, err := exec.Command("tput", "lines").Output()
-	if err != nil {
-		panic(err)
-	}
-
-	// delete \n at the last index
-	just := out[:len(out)-1]
-
-	height, err := strconv.Atoi(string(just))
-	if err != nil {
-		panic(err)
-	}
-
-	return height
 }
 
 func digitsNum(t, size int) map[string]Number {
